@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjetc.dao.QuestionMapper">
+    <sql id="columnName">
+        id,
+        username,
+        question,
+        create_time
+    </sql>
+    <resultMap id="baseMap" type="question">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="question" property="question"></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
+
+    <select id="selectAll" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_question
+        order by create_time esc
+    </select>
+
+    <select id="selectByUsername" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_question
+        where username = #{username}
+    </select>
+
+    <select id="selectLikeUsername" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_question
+        <if test="username!=null and username!=''">
+            where username like concat('%',#{username},'%')
+        </if>
+        order by id desc
+    </select>
+</mapper>

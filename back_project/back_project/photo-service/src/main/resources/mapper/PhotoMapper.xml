@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjetc.dao.PhotoMapper">
+    <sql id="columnName">
+        id,
+        username,
+        album_name,
+        photo_path,
+        create_time
+    </sql>
+
+    <resultMap id="baseMap" type="photo">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="album_name" property="albumName"></result>
+        <result column="photo_path" property="photoPath"></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
+
+    <select id="selectByUsernameAndAlbumName" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_photo
+        where username = #{username}
+        and album_name = #{albumName}
+        order by create_time desc
+    </select>
+</mapper>

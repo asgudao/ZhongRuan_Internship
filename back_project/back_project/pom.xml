@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tjetc</groupId>
+    <artifactId>shop-system</artifactId>
+    <version>${revision}</version>
+    <!--maven中父模块packaging的值是pom-->
+    <packaging>pom</packaging>
+
+    <!--模块-->
+    <modules>
+        <!--子模块-->
+        <module>photo-service</module>
+        <module>photo-admin</module>
+        <module>photo-user</module>
+        <module>photo-scheduled</module>
+    </modules>
+
+    <!--    导入springboot版本和框架依赖  单继承    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.8</version>
+        <relativePath></relativePath>
+    </parent>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--统一控制jar包的版本号-->
+        <!--项目版本号-->
+        <revision>1.0.0.0</revision>
+        <!--第三方的版本号-->
+        <mybatis-plus-spring-boot3-starter.version>3.5.12</mybatis-plus-spring-boot3-starter.version>
+        <pagehelper-spring-boot-starter.version>2.1.1</pagehelper-spring-boot-starter.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <jjwt.version>0.12.5</jjwt.version>
+    </properties>
+
+    <!--父模块管理依赖（不是引用依赖）-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tjetc</groupId>
+                <artifactId>shop-service</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus-spring-boot3-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
+            </dependency>
+            <!--处理字符串工具类-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!--jwt-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

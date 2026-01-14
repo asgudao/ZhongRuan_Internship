@@ -1,0 +1,64 @@
+server:
+  port: 8082
+#配置数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/photolover?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  web:
+    resources:
+      static-locations:
+        #保留默认配置
+        - classpath:/META-INF/resources/
+        - classpath:/resources/
+        - classpath:/static/
+        - classpath:/public/
+        #自定义配置静态资源位置 file:表示文件
+        - file:E:\shixi\myproject\resources
+  servlet:
+    multipart:
+      #配置上传文件文件最大值
+      max-file-size: 1024MB
+      #配置请求体数据最大值
+      max-request-size: 2048MB
+#配置上传文件basePath路径
+file:
+  basePath: E:\shixi\myproject\resources
+#mybatis-plus配置
+mybatis-plus:
+  #classpath* 中的星号 表示 可以扫描jar包下的类路径的文件内容
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #别名
+  type-aliases-package: com.tjetc.entity
+  configuration:
+    #输出日志信息（sql和查询的数据）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #配置主键自增
+      id-type: auto
+#配置分页插件
+pagehelper:
+  #使用的哪个数据库
+  helperDialect: mysql
+  #页码是否合理化 ， 例如：-1页 查询是第1页  一共4页参数写5页 查询是4页
+  reasonable: true
+  #是否支持方法参数
+  supportMethodsArguments: true
+  #查询总条数
+  params: count=countSql
+#设置日志输出级别
+logging:
+  level:
+    #设置指定包下的所有的类的日志输出级别（trace debug info warn error）
+    com:
+      tjetc: debug
+  #配置日志文件位置
+  file:
+    name: E:\shixi\myproject\log
+#生成token过期时间
+jwt:
+  token:
+    expired: 36000000 # token过期时间，单位毫秒

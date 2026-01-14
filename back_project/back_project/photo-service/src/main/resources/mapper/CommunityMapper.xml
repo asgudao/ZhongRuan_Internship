@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjetc.dao.CommunityMapper">
+    <sql id="columnName">
+        id,
+        username,
+        content,
+        photo_path,
+        like_count,
+        create_time,
+        update_time
+    </sql>
+
+    <resultMap id="baseMap" type="community">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="content" property="content"></result>
+        <result column="photo_path" property="photoPath"></result>
+        <result column="like_count" property="likeCount"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+
+    <select id="selectAll" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_community
+        order by update_time desc
+    </select>
+
+    <select id="selectByUsername" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_community
+        where username = #{username}
+        order by update_time desc
+    </select>
+
+    <select id="selectLikeUsername" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_community
+        <if test="username!=null and username!=''">
+            where username like concat('%',#{username},'%')
+        </if>
+        order by id desc
+    </select>
+</mapper>

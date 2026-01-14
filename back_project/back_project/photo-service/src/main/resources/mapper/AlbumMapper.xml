@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjetc.dao.AlbumMapper">
+    <sql id="columnName">
+        id,
+        username,
+        album_name,
+        update_time
+    </sql>
+
+    <resultMap id="baseMap" type="album">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="album_name" property="albumName"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+
+    <select id="selectByUsername" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_album
+        where username = #{username}
+        order by update_time desc
+    </select>
+
+    <select id="selectByUsernameAndAlbumName" resultMap="baseMap">
+        select
+        <include refid="columnName"></include>
+        from photolover_album
+        where username = #{username}
+        and album_name = #{albumName}
+    </select>
+</mapper>
